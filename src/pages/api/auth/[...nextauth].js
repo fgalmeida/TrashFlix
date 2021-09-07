@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 
-const GITHUB_ID = "Iv1.97b3c02409f5794b";
-const GITHUB_SECRET = "239c70ced67f9efa11157a9e7107afa73449ca77";
+const GITHUB_ID = "ADD YOUR GITHUB ID";
+const GITHUB_SECRET = "ADD YOUR GITHUB SECRET";
 
-const DISCORD_CLIENT_ID = "869039109191131207";
-const DISCORD_CLIENT_SECRET = "3eYvm_e2Jxwokxpa7Lb7IRIrl0YcNlBN";
+const DISCORD_CLIENT_ID = "ADD YOUR DISCORD CLIENT";
+const DISCORD_CLIENT_SECRET = "ADD YOUR DISCORD CLIENT SECRET";
 
 export default NextAuth({
   // Configure one or more authentication providers
