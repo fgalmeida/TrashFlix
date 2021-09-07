@@ -1,4 +1,4 @@
-let API_KEY = "6348a726f8b6caab7659f60e2955d519";
+let API_KEY = "ADD YOUR API KEY FROM TMDB";
 let API_BASE = "https://api.themoviedb.org/3";
 
 const basicFetch = async (endpoint) => {
