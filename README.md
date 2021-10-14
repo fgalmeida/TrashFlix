@@ -1,6 +1,6 @@
 # TrashFlix Incomplete 🟥
 
-Movie Website made with Next.js, Tailwind, Axios, Next-Auth, Typescript and outhers... 🚀
+Movie Website made with Next.js, Tailwind, Axios, Next-Auth, Typescript and others... 🚀
 
 ```
 Created by Felipe Almeida (@fgalmeida)
