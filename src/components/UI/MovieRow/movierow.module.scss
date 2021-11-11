@@ -28,6 +28,7 @@
       .cardBox:hover {
         transform: scale(0.9);
         filter: grayscale(5%);
+        cursor: pointer;
       }
     }
   }

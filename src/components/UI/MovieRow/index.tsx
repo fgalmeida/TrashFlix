@@ -4,8 +4,15 @@ import Slider from "react-slick";
 import styles from "../MovieRow/movierow.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useCallback } from "react";
 
-export default function MovieRow({ title, items }) {
+type MovieType = {
+  items: any;
+  title: string;
+  auth: boolean;
+};
+
+export default function MovieRow({ title, items, auth }: MovieType) {
   const settings = {
     dots: false,
     infinite: false,
@@ -65,6 +72,7 @@ export default function MovieRow({ title, items }) {
       },
     ],
   };
+
   return (
     <div className={styles.movieRow}>
       <h2>{title}</h2>
@@ -73,7 +81,7 @@ export default function MovieRow({ title, items }) {
           {items.results?.length > 0 &&
             items.results.map((item, key) => (
               <div key={key} className={styles.cardBox}>
-                <Link href={`/movie/${item.id}`}>
+                <Link href={auth ? (`/movie/${item.id}`) : (`/auth/signin`)}>
                   <img
                     src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
                     alt={key}

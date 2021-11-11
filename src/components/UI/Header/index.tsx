@@ -1,37 +1,31 @@
 import Image from "next/image";
-import { Icon, IconButton, Avatar, Dropdown } from "rsuite";
-
-import { signOut } from "next-auth/client";
+import { Icon, Avatar, Dropdown } from "rsuite";
 
 import styles from "../Header/header.module.scss";
 import "rsuite/dist/styles/rsuite-default.css";
+import { useRouter } from 'next/router';
+import { NavBar } from './Header';
 
-export default function Header({ user, avatar, email }) {
+type HeaderType = {
+  user?: string;
+  avatar?: string;
+  email?: string;
+  logout?: boolean;
+};
+
+export default function Header({ user, avatar, logout, email }: HeaderType) {
+  const router = useRouter()
+  const handleLogin = () => {
+    router.push("/auth/signin")
+  }
   return (
-    <header className={styles.navBar}>
-      <div className={styles.navBarLeft}>
-        <div className={styles.navBarLogoBox}>
-          <Image src="/Logo.svg" width={173} height={38} />
-        </div>
+    <NavBar>
+      <div className="left-container">
+        <img src="/Logo.svg" alt="Logo" />
       </div>
-      <div className={styles.navBarRight}>
-        <div className={styles.navBarSearchBox}></div>
-        <div className={styles.navBarAccountBox}>
-          <Dropdown
-            placement="bottomEnd"
-            renderTitle={() => {
-              return <Avatar src={avatar} size="sm" />;
-            }}
-          >
-            <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
-              <p>Logado como</p>
-              <strong>{user}</strong>
-            </Dropdown.Item>
-            <Dropdown.Item divider />
-            <Dropdown.Item onSelect={() => signOut()}>Sair</Dropdown.Item>
-          </Dropdown>
-        </div>
+      <div className="right-container">
+        <button onClick={handleLogin}>LOGIN</button>
       </div>
-    </header>
+    </NavBar>
   );
 }
