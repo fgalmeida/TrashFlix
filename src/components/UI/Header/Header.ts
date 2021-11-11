@@ -19,6 +19,10 @@ export const NavBar = styled.nav`
     img {
       width: 150px;
       height: 100%;
+
+      :hover {
+        cursor: pointer;
+      }
     }
   }
 

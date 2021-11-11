@@ -44,7 +44,7 @@ export const Container = styled.div`
       font-size: 18px;
       font-weight: 500;
 
-      transition: 0.3s all ease;
+      transition: 0.3s all ease-in-out;
 
       background-image: radial-gradient(
         circle farthest-corner at 10% 20%,
@@ -62,7 +62,7 @@ export const Container = styled.div`
 
       :active {
         opacity: 0.7;
-        transform: scale(95%);
+        transform: scale(85%);
       }
     }
   }

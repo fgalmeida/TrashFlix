@@ -18,10 +18,13 @@ export default function Header({ user, avatar, logout, email }: HeaderType) {
   const handleLogin = () => {
     router.push("/auth/signin")
   }
+  const handleHome = () => {
+    router.push("/")
+  }
   return (
     <NavBar>
       <div className="left-container">
-        <img src="/Logo.svg" alt="Logo" />
+        <img onClick={handleHome} src="/Logo.svg" alt="Logo" />
       </div>
       <div className="right-container">
         <button onClick={handleLogin}>LOGIN</button>

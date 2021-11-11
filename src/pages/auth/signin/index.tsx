@@ -98,7 +98,7 @@ const SignIn = () => {
           required
           {...register("password")}
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit">LOGIN</Button>
         <Link href="/auth/signup"><span>New to TrashFlix? </span> Sign up</Link>
       </Form>
       </SubContainer>

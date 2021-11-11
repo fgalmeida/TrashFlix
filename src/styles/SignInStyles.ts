@@ -26,6 +26,15 @@ export const SubContainer = styled.div`
   justify-content: center;
   align-items: center;
 
+
+  background: linear-gradient(
+      180deg,
+      rgba(9, 11, 19, 1) 0%,
+      rgba(9, 11, 19, 0.1) 50%,
+      rgba(9, 11, 19, 1) 100%
+    ),
+    url("https://assets.nflxext.com/ffe/siteui/vlv3/5dd45df7-33f1-4274-97ea-e9c6aca69dad/1fcbae1b-7dbe-47af-8e9b-7a8e53c14096/BR-pt-20211108-popsignuptwoweeks-perspective_alpha_website_large.jpg");
+
   ${[sizes.up("sm")]} {
     height: 100vh;
   }
@@ -40,13 +49,20 @@ export const Heading = styled.h1`
 
 export const Form = styled.form`
   width: 100%;
+  min-height: 450px;
+  height: auto;
+
+  padding: 25px;
 
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: 10px;
+
+  background: rgba(9, 11, 19, 1);
+  box-shadow: #0e0f18 0px 0px 30px 1px;
 
   ${[sizes.up("sm")]} {
-    width: 300px;
+    width: 350px;
   }
   ${[sizes.up("xl")]} {
     width: 420px;
@@ -80,10 +96,14 @@ export const Button = styled.button`
   padding: 16px;
   margin-bottom: 20px;
 
-  font-size: 14.5px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
 
-  background: #e50914;
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(171, 102, 255, 1) 0%,
+    rgba(116, 182, 247, 1) 90%
+  );
 
   cursor: pointer;
   transition: 150ms all;
@@ -92,12 +112,23 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
 
+  transition: 0.3s all ease-in-out;
+
   &:hover {
-    background: #c40812;
+    background-image: radial-gradient(
+      circle farthest-corner at 10% 20%,
+      rgba(116, 182, 247, 1) 0%,
+      rgba(171, 102, 255, 1) 90%
+    );
   }
   ${[sizes.up("xl")]} {
     padding: 22.4px;
     font-size: 20.3px;
+  }
+
+  :active {
+    opacity: 0.8;
+    transform: scale(95%);
   }
 `;
 

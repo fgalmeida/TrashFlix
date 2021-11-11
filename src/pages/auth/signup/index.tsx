@@ -142,7 +142,7 @@ const SignUp = () => {
             required
             {...register("password")}
           />
-          <Button type="submit">Register</Button>
+          <Button type="submit">REGISTER</Button>
           <Link href="/auth/signin">Already have an account? Login</Link>
         </Form>
       </SubContainer>
