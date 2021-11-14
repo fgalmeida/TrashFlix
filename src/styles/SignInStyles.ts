@@ -17,7 +17,7 @@ export const Container = styled.div`
 
 export const SubContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   padding: 20px;
 
@@ -26,6 +26,7 @@ export const SubContainer = styled.div`
   justify-content: center;
   align-items: center;
 
+  position: absolute;
 
   background: linear-gradient(
       180deg,
@@ -34,6 +35,8 @@ export const SubContainer = styled.div`
       rgba(9, 11, 19, 1) 100%
     ),
     url("https://assets.nflxext.com/ffe/siteui/vlv3/5dd45df7-33f1-4274-97ea-e9c6aca69dad/1fcbae1b-7dbe-47af-8e9b-7a8e53c14096/BR-pt-20211108-popsignuptwoweeks-perspective_alpha_website_large.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 
   ${[sizes.up("sm")]} {
     height: 100vh;
@@ -75,7 +78,7 @@ export const Input = styled.input`
   padding: 5px 18px;
   margin-bottom: 24px;
 
-  background: #333;
+  background: #15172b;
   color: #fff;
 
   font-size: 16px;
@@ -85,18 +88,28 @@ export const Input = styled.input`
   border: none;
   border-radius: 5px;
 
+  ::placeholder {
+    color: #fff;
+  }
+
   ${[sizes.up("xl")]} {
     padding: 5.6px 25.2px;
-    font-size: 22.4px;
+    font-size: 16px;
     line-height: 70px;
   }
 `;
 
 export const Button = styled.button`
-  padding: 16px;
+  height: 50px;
+  padding: 15px;
   margin-bottom: 20px;
 
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
   font-weight: 600;
 
   background-image: radial-gradient(
@@ -123,7 +136,7 @@ export const Button = styled.button`
   }
   ${[sizes.up("xl")]} {
     padding: 22.4px;
-    font-size: 20.3px;
+    font-size: 20px;
   }
 
   :active {
@@ -143,7 +156,7 @@ export const Link = styled.a`
     color: #fff;
   }
 
-  :active {
+  :visited {
     text-decoration: underline;
     color: #fff;
   }

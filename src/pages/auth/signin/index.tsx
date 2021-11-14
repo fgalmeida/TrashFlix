@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { Container, SubContainer, Input, Button, Form, Heading, Link } from "../../../styles/SignInStyles";
 import { AuthContext } from "../../../contexts/AuthContext";
-import Header from '../../../components/UI/Header';
+import Header from '../../../components/molecules/Header';
 
 type ToastProps = {
   newMessage?: string;
@@ -78,7 +78,7 @@ const SignIn = () => {
 
   return (
     <Container>
-      <Header logout={true}/>
+      <Header black/>
       <SubContainer>
       <Form onSubmit={handleSubmit(handleSignIn)}>
         <Heading>Login</Heading>

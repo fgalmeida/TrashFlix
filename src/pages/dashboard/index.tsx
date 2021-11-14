@@ -1,18 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
-import { getSession, signIn, signOut, useSession } from "next-auth/client";
 import { toast } from "react-toastify";
 
-import Meta from "../../components/Meta/Meta";
+import Meta from "../../components/atoms/Meta/Meta";
 
-import FeaturedMovie from "../../components/UI/FeaturedMovie";
-import MovieRow from "../../components/UI/MovieRow";
-import Header from "../../components/UI/Header";
+import FeaturedMovie from "../../components/molecules/FeaturedMovie";
+import MovieRow from "../../components/molecules/MovieRow";
+import Header from "../../components/molecules/Header";
 
 import { GridLoader, PuffLoader, PulseLoader } from "react-spinners";
 import { getHomeList, getMovieInfo } from "../../services/movies.service";
 import { api } from "../../services/apiClient";
+import { setupApiClient } from "services/api";
+import { withSSRAuth } from "utils/withSSRAuth";
+import { urlObjectKeys } from "next/dist/shared/lib/utils";
+import { Container, Hero, Movies } from "styles/Dashboard";
 
-export default function Dashboard({ session }) {
+interface HomeProps {
+  user: {
+    email: string;
+    name: string;
+    last_name: string;
+    profile_image: string;
+  };
+}
+
+export default function Dashboard({ user }: HomeProps) {
   const [featuredData, setFeaturedData] = useState(null);
   const [trendingList, setTrendingList] = useState([]);
   const [trendingListDay, setTrendingListDay] = useState([]);
@@ -21,7 +33,39 @@ export default function Dashboard({ session }) {
   const [horror, setHorror] = useState([]);
   const [romance, setRomance] = useState([]);
 
+  const name = "Felipe";
+  const email = "felipegoa@hotmail.com";
+  const last_name = "Almeida";
+  const url_profile_image = "https://github.com/fgalmeida.png";
+
   const [isLoading, setIsLoading] = useState(true);
+
+  const [blackHeader, setBlackHeader] = useState(false);
+  const [topBtn, setTopBtn] = useState(false);
+
+  function handleScrollTop() {
+    var Scroll = require("react-scroll");
+    var scroll = Scroll.animateScroll;
+
+    scroll.scrollToTop();
+  }
+
+  useEffect(() => {
+    const scrollListener = () => {
+      if (window.scrollY > 700) {
+        setBlackHeader(true);
+        setTopBtn(true);
+      } else {
+        setBlackHeader(false);
+        setTopBtn(false);
+      }
+    };
+    window.addEventListener("scroll", scrollListener);
+
+    return () => {
+      window.removeEventListener("scroll", scrollListener);
+    };
+  }, []);
 
   const notifySucces = useCallback((message) => {
     toast.success(message, {
@@ -77,7 +121,7 @@ export default function Dashboard({ session }) {
     } finally {
       setTimeout(function () {
         setIsLoading(false);
-      }, 4000);
+      }, 1000);
     }
   }
 
@@ -88,84 +132,53 @@ export default function Dashboard({ session }) {
   return (
     <>
       <Meta />
-      <div className="{styles.container}">
-        {session ? (
-          <Header
-            logout={false}
-            user={session.user.name}
-            avatar={session.user.image}
-            email={session.user.email}
-          />
-        ) : (
-          <Header logout={true} />
-        )}
+      <Container>
+        <Header
+          black={blackHeader}
+          user={name + " " + last_name}
+          avatar={url_profile_image}
+          email={email}
+          home
+        />
 
-        {featuredData && (
-          <FeaturedMovie
-            data={featuredData}
-            isLoading={isLoading}
-            auth={session}
-          />
-        )}
-        {trendingList.map((item, key) => (
-          <MovieRow
-            key={key}
-            title={item.title}
-            items={item.items}
-            auth={session}
-          />
-        ))}
-        {trendingListDay.map((item, key) => (
-          <MovieRow
-            key={key}
-            title={item.title}
-            items={item.items}
-            auth={session}
-          />
-        ))}
-        {action.map((item, key) => (
-          <MovieRow
-            key={key}
-            title={item.title}
-            items={item.items}
-            auth={session}
-          />
-        ))}
-        {comedy.map((item, key) => (
-          <MovieRow
-            key={key}
-            title={item.title}
-            items={item.items}
-            auth={session}
-          />
-        ))}
-        {horror.map((item, key) => (
-          <MovieRow
-            key={key}
-            title={item.title}
-            items={item.items}
-            auth={session}
-          />
-        ))}
-        {romance.map((item, key) => (
-          <MovieRow
-            key={key}
-            title={item.title}
-            items={item.items}
-            auth={session}
-          />
-        ))}
-      </div>
+        <Hero>
+          {featuredData && (
+            <FeaturedMovie data={featuredData} isLoading={isLoading} />
+          )}
+        </Hero>
+        <Movies>
+          {trendingList.map((item, key) => (
+            <MovieRow key={key} title={item.title} items={item.items} />
+          ))}
+          {trendingListDay.map((item, key) => (
+            <MovieRow key={key} title={item.title} items={item.items} />
+          ))}
+          {action.map((item, key) => (
+            <MovieRow key={key} title={item.title} items={item.items} />
+          ))}
+          {comedy.map((item, key) => (
+            <MovieRow key={key} title={item.title} items={item.items} />
+          ))}
+          {horror.map((item, key) => (
+            <MovieRow key={key} title={item.title} items={item.items} />
+          ))}
+          {romance.map((item, key) => (
+            <MovieRow key={key} title={item.title} items={item.items} />
+          ))}
+        </Movies>
+      </Container>
     </>
   );
 }
 
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
+// export const getServerSideProps = withSSRAuth(async (ctx) => {
+//   const apiClient = setupApiClient(ctx);
 
-  return {
-    props: {
-      session,
-    },
-  };
-};
+//   const res = await apiClient.get("/users/me");
+
+//   return {
+//     props: {
+//       user: res.data.body,
+//     },
+//   };
+// });

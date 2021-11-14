@@ -6,6 +6,7 @@ const breakpoints: Breakpoints = {
   sm: '600px',
   md: '960px',
   lg: '1280px',
+  lgx: '1330px',
   xl: '1920px',
 };
 

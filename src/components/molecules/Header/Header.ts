@@ -1,8 +1,14 @@
 import styled from "styled-components";
 
-export const NavBar = styled.nav`
+interface NavBarType {
+  black: boolean;
+}
+
+export const NavBar = styled.nav<NavBarType>`
   width: 100%;
   height: 80px;
+
+  z-index: 1;
 
   display: flex;
   flex-direction: row;
@@ -14,6 +20,16 @@ export const NavBar = styled.nav`
   position: fixed;
 
   transition: all 0.5s ease;
+
+  background: ${(props) =>
+    props.black
+      ? `linear-gradient(
+      180deg,
+      rgba(9, 11, 19, 1) 0%,
+      transparent 50%,
+      transparent 100%
+    )`
+      : "transparent"};
 
   .left-container {
     img {
@@ -48,7 +64,7 @@ export const NavBar = styled.nav`
 
       :active {
         background: #302d36;
-        transform: scale(90%)
+        transform: scale(90%);
       }
     }
   }

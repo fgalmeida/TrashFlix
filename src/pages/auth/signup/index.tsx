@@ -6,7 +6,7 @@ import {
   Input,
   Button,
   Link,
-  SubContainer
+  SubContainer,
 } from "../../../styles/SignInStyles";
 
 import { AuthContext } from "../../../contexts/AuthContext";
@@ -17,7 +17,7 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { api } from "../../../services/apiClient";
-import Header from '../../../components/UI/Header';
+import Header from "../../../components/molecules/Header";
 
 type ToastProps = {
   newMessage?: string;
@@ -108,7 +108,7 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Header logout={true} />
+      <Header black />
       <SubContainer>
         <Form onSubmit={handleSubmit}>
           <Heading>Sign Up</Heading>

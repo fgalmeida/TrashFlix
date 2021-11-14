@@ -1,3 +1,5 @@
+import Header from "components/molecules/Header";
+import MovieDetail from "components/molecules/MovieDetail";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -12,7 +14,16 @@ type MovieType = {
   vote_average: number;
 };
 
-const Movie = () => {
+interface HomeProps {
+  user: {
+    email: string;
+    name: string;
+    last_name: string;
+    profile_image: string;
+  };
+}
+
+const Movie = ({ user }: HomeProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState<MovieType>();
@@ -46,14 +57,19 @@ const Movie = () => {
 
   async function loadData() {
     try {
-      const data = await getMovieInfo(id, "movie" || "tv");
+      var data;
+      try {
+        data = await getMovieInfo(id, "movie");
+      } catch (e) {
+        data = await getMovieInfo(id, "tv");
+      }
       setData(data);
     } catch (e) {
       notifyError("Algo deu errado tente novamente!");
     } finally {
       setTimeout(function () {
         setIsLoading(false);
-      }, 4000);
+      }, 1000);
     }
   }
 
@@ -63,11 +79,28 @@ const Movie = () => {
 
   return (
     <>
-      <h1>{data?.title}</h1>
-      <h1>{data?.name}</h1>
-      <h1>{data?.overview}</h1>
+      <Header
+        black={true}
+        // user={name + " " + last_name}
+        // avatar={url_profile_image}
+        // email={email}
+        home
+      />
+      <MovieDetail data={data} isLoading={isLoading} />
     </>
   );
 };
 
 export default Movie;
+
+// export const getServerSideProps = withSSRAuth(async (ctx) => {
+//   const apiClient = setupApiClient(ctx);
+
+//   const res = await apiClient.get("/users/me");
+
+//   return {
+//     props: {
+//       user: res.data.body,
+//     },
+//   };
+// });

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { parseCookies } from 'nookies'
-import { API_URL } from '../../config';
+import { TMDB_URL } from '../../config';
 import { signOut } from '../contexts/AuthContext';
 import { AuthTokenError } from './errors/AuthTokenError';
 
@@ -8,7 +8,7 @@ export function setupApiClient(ctx = undefined) {
   const cookies = parseCookies(ctx)
 
   const api = axios.create({
-    baseURL: `${API_URL}`,
+    baseURL: `${TMDB_URL}`,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${cookies['trashflix.auth.token']}`
