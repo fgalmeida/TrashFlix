@@ -9,15 +9,15 @@ import {
   SubContainer,
 } from "../../../styles/SignInStyles";
 
-import { AuthContext } from "../../../contexts/AuthContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
 import * as yup from "yup";
 
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { api } from "../../../services/apiClient";
 import Header from "../../../components/molecules/Header";
+import Head from "next/head";
 
 type ToastProps = {
   newMessage?: string;
@@ -25,14 +25,14 @@ type ToastProps = {
 
 type RegisterFormData = {
   name: string;
-  surname: string;
+  last_name: string;
   email: string;
   password: string;
 };
 
 const registerFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
-  surname: yup.string().required("Sobrenome obrigatório"),
+  last_name: yup.string().required("Sobrenome obrigatório"),
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup
     .string()
@@ -41,8 +41,6 @@ const registerFormSchema = yup.object().shape({
 });
 
 const SignUp = () => {
-  const [termsConfirmation, setTermsConfirmation] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -57,19 +55,15 @@ const SignUp = () => {
     try {
       const user = {
         name: values.name,
-        last_name: values.surname,
+        last_name: values.last_name,
         email: values.email,
-        phrase: values.password,
+        password: values.password,
       };
 
-      if (!termsConfirmation)
-        return handleSendErrorToast({
-          newMessage: "Aceite os termos de uso para concluir o registro",
-        });
-
-      const res = await api.post("auth/register", user);
+      const res = await api.post("/auth/register", user);
 
       if (res.status === 201 || res.status === 200) {
+        notifySucces("Sucesso ao se registrar!");
         Router.push("/auth/signin");
       }
     } catch (e) {
@@ -90,7 +84,7 @@ const SignUp = () => {
     let message =
       newMessage ||
       errors?.name?.message ||
-      errors?.surname?.message ||
+      errors?.last_name?.message ||
       errors?.email?.message ||
       errors?.password?.message;
 
@@ -106,47 +100,64 @@ const SignUp = () => {
       });
   };
 
+  const notifySucces = useCallback((message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }, []);
+
   return (
-    <Container>
-      <Header black />
-      <SubContainer>
-        <Form onSubmit={handleSubmit}>
-          <Heading>Sign Up</Heading>
-          <Input
-            type="text"
-            name="name"
-            placeholder="Name"
-            required
-            {...register("name")}
-          />
-          <Input
-            type="text"
-            name="lastname"
-            placeholder="Last Name"
-            required
-            {...register("surname")}
-          />
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            autoComplete="email"
-            required
-            {...register("email")}
-          />
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            autoComplete="new-password"
-            required
-            {...register("password")}
-          />
-          <Button type="submit">REGISTER</Button>
-          <Link href="/auth/signin">Already have an account? Login</Link>
-        </Form>
-      </SubContainer>
-    </Container>
+    <>
+      <Head>
+        <title>TrashFlix | Filmes </title>
+      </Head>
+      <Container>
+        <Header black />
+        <SubContainer>
+          <Form onSubmit={handleSubmit(handleRegister)}>
+            <Heading>Sign Up</Heading>
+            <Input
+              type="text"
+              name="name"
+              placeholder="Nome"
+              required
+              {...register("name")}
+            />
+            <Input
+              type="text"
+              name="lastname"
+              placeholder="Sobrenome"
+              required
+              {...register("last_name")}
+            />
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              autoComplete="email"
+              required
+              {...register("email")}
+            />
+            <Input
+              type="password"
+              name="password"
+              placeholder="Senha"
+              autoComplete="new-password"
+              required
+              {...register("password")}
+            />
+            <Button type="submit">REGISTRAR</Button>
+            <Link href="/auth/signin">Ja tem conta? Login</Link>
+          </Form>
+        </SubContainer>
+      </Container>
+    </>
   );
 };
 

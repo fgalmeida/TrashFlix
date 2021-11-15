@@ -3,11 +3,20 @@ import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
 import * as yup from "yup";
+import Head from "next/head";
 
 import { toast } from "react-toastify";
-import { Container, SubContainer, Input, Button, Form, Heading, Link } from "../../../styles/SignInStyles";
+import {
+  Container,
+  SubContainer,
+  Input,
+  Button,
+  Form,
+  Heading,
+  Link,
+} from "../../../styles/SignInStyles";
 import { AuthContext } from "../../../contexts/AuthContext";
-import Header from '../../../components/molecules/Header';
+import Header from "../../../components/molecules/Header";
 
 type ToastProps = {
   newMessage?: string;
@@ -51,7 +60,7 @@ const SignIn = () => {
         router.push("/dashboard");
       }
     } catch (e) {
-      if (e.message.includes("401") || e.message.includes("404")) {
+      if (e.message.includes(401) || e.message.includes(404)) {
         handleSendErrorToast({ newMessage: "Email ou senha incorretos" });
       } else {
         handleSendErrorToast({
@@ -77,32 +86,39 @@ const SignIn = () => {
   };
 
   return (
-    <Container>
-      <Header black/>
-      <SubContainer>
-      <Form onSubmit={handleSubmit(handleSignIn)}>
-        <Heading>Login</Heading>
-        <Input
-          name="email"
-          type="email"
-          placeholder="example@hotmail.com"
-          autoComplete="email"
-          required
-          {...register("email")}
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          autoComplete="current-password"
-          required
-          {...register("password")}
-        />
-        <Button type="submit">LOGIN</Button>
-        <Link href="/auth/signup"><span>New to TrashFlix? </span> Sign up</Link>
-      </Form>
-      </SubContainer>
-    </Container>
+    <>
+      <Head>
+        <title>TrashFlix | Filmes</title>
+      </Head>
+      <Container>
+        <Header black />
+        <SubContainer>
+          <Form onSubmit={handleSubmit(handleSignIn)}>
+            <Heading>Login</Heading>
+            <Input
+              name="email"
+              type="email"
+              placeholder="exemplo@hotmail.com"
+              autoComplete="email"
+              required
+              {...register("email")}
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Senha"
+              autoComplete="current-password"
+              required
+              {...register("password")}
+            />
+            <Button type="submit">ENTRAR</Button>
+            <Link href="/auth/signup">
+              <span>Novo no TrashFlix? </span> Sign up
+            </Link>
+          </Form>
+        </SubContainer>
+      </Container>
+    </>
   );
 };
 

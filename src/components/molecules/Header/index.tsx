@@ -45,14 +45,16 @@ export default function Header({ user, avatar, email, black, home }: HeaderType)
               panel
               style={{ padding: 10, width: 160, color: "black" }}
             >
-              <p>Account</p>
+              <p>Logado como</p>
               <strong>{user}</strong>
             </Dropdown.Item>
+            <Dropdown.Item divider />
+            <Dropdown.Item onSelect={() => signOut()}>Configurações</Dropdown.Item>
             <Dropdown.Item divider />
             <Dropdown.Item onSelect={() => signOut()}>Sair</Dropdown.Item>
           </Dropdown>
         ) : (
-          <button onClick={handleLogin}>LOGIN</button>
+          <button onClick={handleLogin}>ENTRAR</button>
         )}
       </div>
     </NavBar>

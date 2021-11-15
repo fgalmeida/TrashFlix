@@ -70,7 +70,7 @@ export default function Home() {
         )}
         <section id="Hero" className="hero">
           <img src="/Logo.svg" alt="Logo" />
-          <button>I WANT TO SIGN</button>
+          <button>EU QUERO ASSINAR</button>
         </section>
         <section id="Plans" className="cards">
           <div className="arrow">
@@ -86,47 +86,47 @@ export default function Home() {
             </Link>
           </div>
           <div className="title-cards">
-            <h1>Choose your plan</h1>
+            <h1>ESCOLHA SEU PLANO</h1>
           </div>
           <div className="cards-wrap">
             <div className="card">
               <div className="card-top">
-                <h1>Monthly plan</h1>
-                <h2>$ 10,90/month</h2>
+                <h1>Plano Mensal</h1>
+                <h2>R$ 15,90/mês</h2>
                 <p>
-                  Subscribe to TrashFlix's monthly plan and find series, movies
-                  that are perfect for you.
+                  Assine o plano mensal da TrashFlix e encontre séries, filmes
+                  que são perfeitos para você.
                 </p>
               </div>
               <div className="card-btn">
-                <button>CHOOSE</button>
+                <button>ESCOLHER</button>
               </div>
             </div>
             <div className="card-middle">
               <div className="card-top">
-                <div className="most">Most Popular</div>
-                <h1>Quarterly plan</h1>
-                <h2>$ 28,90/quarter</h2>
+                <div className="most">Mais Popular</div>
+                <h1>Plano Trimestral</h1>
+                <h2>R$ 35,90/trimestral</h2>
                 <p>
-                  Subscribe to TrashFlix's quarterly plan and find series,
-                  movies that are perfect for you.
+                  Assine o plano trimestral da TrashFlix e encontre séries,
+                  filmes perfeitos para você.
                 </p>
               </div>
               <div className="card-btn">
-                <button>CHOOSE</button>
+                <button>ESCOLHER</button>
               </div>
             </div>
             <div className="card">
               <div className="card-top">
-                <h1>Year plan</h1>
-                <h2>$ 100,00/year</h2>
+                <h1>Plano Anual</h1>
+                <h2>R$ 350,00/ano</h2>
                 <p>
-                  Enjoy a whole year for a promotional price and find more than
-                  you like.
+                  Aproveite um ano inteiro por um preço promocional e encontre
+                  mais do que Você gosta.
                 </p>
               </div>
               <div className="card-btn">
-                <button>CHOOSE</button>
+                <button>ESCOLHER</button>
               </div>
             </div>
           </div>

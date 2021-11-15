@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useCallback, useState } from "react";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../../../config";
-import { CardBox, Img, MovieRowList } from "./MovieRow";
+import { CardBox, Img, InitialSpace, MovieRowList } from "./MovieRow";
 import { Container } from "./MovieRow";
 
 import ScrollContainer from "react-indiana-drag-scroll";

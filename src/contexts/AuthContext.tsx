@@ -75,7 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       password,
     });
 
-    const token = res.data.jwtToken;
+    const token = res.data.token;
 
     authChannel.postMessage("signIn");
 

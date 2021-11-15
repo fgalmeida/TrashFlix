@@ -3,6 +3,7 @@ import { setupApiClient } from "services/api";
 import { withSSRAuth } from "utils/withSSRAuth";
 import jwt from "jwt-decode";
 import { parseCookies } from "nookies";
+import { useState } from 'react';
 
 interface HomeProps {
   user: {
@@ -25,7 +26,7 @@ export default Watch;
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   const apiClient = setupApiClient(ctx);
   const cookies = parseCookies(ctx);
-  const { sub } = jwt(cookies["trashflix.auth.token"]);
+  const { sub } = jwt(cookies["trashflix.auth.token"])
   const res = await apiClient.get(`/users/${sub}`);
 
   return {

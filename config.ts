@@ -1,4 +1,4 @@
-export const API_URL = "https://fakestoreapi.com/auth/login";
+export const API_URL = "http://localhost:8000";
 
 export const TMDB_URL = "https://api.themoviedb.org/3";
 
@@ -17,6 +17,6 @@ const DISCORD_CLIENT_SECRET = "3eYvm_e2Jxwokxpa7Lb7IRIrl0YcNlBN";
 export const BACKDROP_SIZE = "original";
 
 // w92, w154, w185, w342, w500, w780, original
-export const POSTER_SIZE = "w342";
+export const POSTER_SIZE = "original";
 export const PHOTO_SIZE = "w342";
 export const TINY_POSTER_SIZE = "w185";

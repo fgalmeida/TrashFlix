@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import jwt from "jwt-decode";
 
 import Meta from "../../components/atoms/Meta/Meta";
 
@@ -14,6 +15,7 @@ import { setupApiClient } from "services/api";
 import { withSSRAuth } from "utils/withSSRAuth";
 import { urlObjectKeys } from "next/dist/shared/lib/utils";
 import { Container, Hero, Movies } from "styles/Dashboard";
+import { parseCookies } from "nookies";
 
 interface HomeProps {
   user: {
@@ -36,7 +38,6 @@ export default function Dashboard({ user }: HomeProps) {
   const name = "Felipe";
   const email = "felipegoa@hotmail.com";
   const last_name = "Almeida";
-  const url_profile_image = "https://github.com/fgalmeida.png";
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -135,9 +136,9 @@ export default function Dashboard({ user }: HomeProps) {
       <Container>
         <Header
           black={blackHeader}
-          user={name + " " + last_name}
+          user={user.name + " " + user.last_name}
           avatar={url_profile_image}
-          email={email}
+          email={user.email}
           home
         />
 
@@ -171,14 +172,18 @@ export default function Dashboard({ user }: HomeProps) {
   );
 }
 
-// export const getServerSideProps = withSSRAuth(async (ctx) => {
-//   const apiClient = setupApiClient(ctx);
+export const url_profile_image = "https://github.com/fgalmeida.png";
 
-//   const res = await apiClient.get("/users/me");
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+  const apiClient = setupApiClient(ctx);
+  const cookies = parseCookies(ctx);
+  const { sub } = jwt(cookies["trashflix.auth.token"])
+  const res = await apiClient.get(`/users/${sub}`);
 
-//   return {
-//     props: {
-//       user: res.data.body,
-//     },
-//   };
-// });
+  return {
+    props: {
+      user: res.data,
+    },
+  };
+});
+

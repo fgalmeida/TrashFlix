@@ -57,3 +57,51 @@ export const MovieRowList = styled.div`
   height: 360px;
   display: inline-flex;
 `;
+
+export const InitialSpace = styled.div<{ additionalSpace?: boolean }>`
+  display: inline-flex;
+  min-width: 100vw;
+  ${({ additionalSpace }) =>
+    additionalSpace &&
+    `
+    &:last-child {
+      margin-right: 50px;
+      ${[sizes.up('sm')]} {
+        margin-right: 70px;
+      }
+      ${[sizes.up('md')]} {
+        margin-right: 80px;
+      }
+      ${[sizes.up('lg')]} {
+        margin-right: 90px;
+      }
+    }
+  `}
+`;
+
+export const LoadMore = styled.div`
+  position: relative;
+  margin-right: 15px;
+  padding-right: 29vw;
+  ${[sizes.up('sm')]} {
+    padding-right: 18vw;
+  }
+  ${[sizes.up('md')]} {
+    padding-right: 15vw;
+  }
+  ${[sizes.up('lg')]} {
+    padding-right: 11.26vw;
+  }
+  animation: pulse 1s infinite ease-in-out;
+  @keyframes pulse {
+    0% {
+      background: #1c1c1c;
+    }
+    50% {
+      background: #101010;
+    }
+    100% {
+      background: #1c1c1c;
+    }
+  }
+`;

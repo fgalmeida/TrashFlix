@@ -62,11 +62,12 @@ export default function FeaturedMovie({ data, isLoading }: FeaturedType) {
                       value={data.vote_average / 2}
                       color="blue"
                       className="Rate"
+                      allowHalf={true}
                     />
                   </div>
                   <div className="featuredInfo">
                     <div className="featuredPoints">
-                      {data.vote_average} pontos
+                      {data.vote_average / 2} pontos
                     </div>
                     <div className="featuredYear">
                       {firstDate.getFullYear()}
