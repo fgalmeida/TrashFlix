@@ -45,6 +45,10 @@ interface HomeProps {
   };
 }
 
+type Id = {
+  sub: string;
+}
+
 const Movie = ({ user }: HomeProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -125,7 +129,7 @@ export default Movie;
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   const apiClient = setupApiClient(ctx);
   const cookies = parseCookies(ctx);
-  const { sub } = jwt(cookies["trashflix.auth.token"]);
+  const { sub }: Id = jwt(cookies["trashflix.auth.token"]);
   const res = await apiClient.get(`/users/${sub}`);
 
   return {

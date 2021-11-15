@@ -13,6 +13,10 @@ interface HomeProps {
   };
 }
 
+type Id = {
+  sub: string;
+};
+
 const Watch = ({ user }: HomeProps) => {
   const router = useRouter();
   const { id } = router.query;
@@ -25,7 +29,7 @@ export default Watch;
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   const apiClient = setupApiClient(ctx);
   const cookies = parseCookies(ctx);
-  const { sub } = jwt(cookies["trashflix.auth.token"]);
+  const { sub }: Id = jwt(cookies["trashflix.auth.token"]);
   const res = await apiClient.get(`/users/${sub}`);
 
   return {

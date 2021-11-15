@@ -7,12 +7,6 @@ export const API_KEY =
 
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 
-const GITHUB_ID = "Iv1.97b3c02409f5794b";
-const GITHUB_SECRET = "239c70ced67f9efa11157a9e7107afa73449ca77";
-
-const DISCORD_CLIENT_ID = "869039109191131207";
-const DISCORD_CLIENT_SECRET = "3eYvm_e2Jxwokxpa7Lb7IRIrl0YcNlBN";
-
 // sizes: w300, w780, w1280, original
 export const BACKDROP_SIZE = "original";
 

@@ -17,6 +17,10 @@ import { urlObjectKeys } from "next/dist/shared/lib/utils";
 import { Container, Hero, Movies } from "styles/Dashboard";
 import { parseCookies } from "nookies";
 
+type Id = {
+  sub: string;
+}
+
 interface HomeProps {
   user: {
     email: string;
@@ -177,7 +181,7 @@ export const url_profile_image = "https://github.com/fgalmeida.png";
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   const apiClient = setupApiClient(ctx);
   const cookies = parseCookies(ctx);
-  const { sub } = jwt(cookies["trashflix.auth.token"])
+  const { sub }: Id = jwt(cookies["trashflix.auth.token"])
   const res = await apiClient.get(`/users/${sub}`);
 
   return {
