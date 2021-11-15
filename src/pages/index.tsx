@@ -1,103 +1,138 @@
+import Header from "components/molecules/Header";
+import { Container } from "styles/Home";
+import Meta from "../components/atoms/Meta/Meta";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+
+import { Link, animateScroll as scroll } from "react-scroll";
 import { useEffect, useState } from "react";
-import { getSession, signIn, signOut, useSession } from "next-auth/client";
+import { AnimatePresence, motion } from "framer-motion";
 
-import Meta from "../components/Meta/Meta";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import FeaturedMovie from "../components/UI/FeaturedMovie";
-import MovieRow from "../components/UI/MovieRow";
-import Header from "../components/UI/Header";
+export default function Home() {
+  const [blackHeader, setBlackHeader] = useState(false);
+  const [topBtn, setTopBtn] = useState(false);
 
-import requests from "./api/requests";
+  function handleScrollTop() {
+    var Scroll = require("react-scroll");
+    var scroll = Scroll.animateScroll;
 
-import styles from "../styles/home.module.scss";
-
-export default function Home({ session }) {
-  const [featuredData, setFeaturedData] = useState(null);
-  const [trendingList, setTrendingList] = useState([]);
-  const [trendingListDay, setTrendingListDay] = useState([]);
-  const [action, setAction] = useState([]);
-  const [comedy, setComedy] = useState([]);
-  const [horror, setHorror] = useState([]);
-  const [romance, setRomance] = useState([]);
+    scroll.scrollToTop();
+  }
 
   useEffect(() => {
-    const loadAll = async () => {
-      let list = await requests.getHomeList();
-      let trending = list.filter((i) => i.slug === "trending");
-      let trendingDay = list.filter((i) => i.slug === "trendingDay");
-      let action = list.filter((i) => i.slug === "action");
-      let comedy = list.filter((i) => i.slug === "comedy");
-      let horror = list.filter((i) => i.slug === "horror");
-      let romance = list.filter((i) => i.slug === "romance");
-      setTrendingList(trending);
-      setTrendingListDay(trendingDay);
-      setAction(action);
-      setComedy(comedy);
-      setHorror(horror);
-      setRomance(romance);
-
-      // Pegando o filme em destaque (featured)
-      let featured = list.filter((i) => i.slug === "featured");
-      let randomChosen = Math.floor(
-        Math.random() * (featured[0].items.results.length - 1)
-      );
-      let chosen = featured[0].items.results[randomChosen];
-
-      let chosenInfo = await requests.getMovieInfo(chosen.id, "tv");
-      setFeaturedData(chosenInfo);
+    const scrollListener = () => {
+      if (window.scrollY > 700) {
+        setBlackHeader(true);
+        setTopBtn(true);
+      } else {
+        setBlackHeader(false);
+        setTopBtn(false);
+      }
     };
+    window.addEventListener("scroll", scrollListener);
 
-    loadAll();
+    return () => {
+      window.removeEventListener("scroll", scrollListener);
+    };
   }, []);
 
   return (
     <>
-      {!session && (
-        <>
-          Not signed in <br />
-          <button onClick={() => signIn()}>Sign in</button>
-        </>
-      )}
-      {session && (
-        <>
-          <Meta />
-          <div className={styles.container}>
-            <Header
-              user={session.user.name}
-              avatar={session.user.image}
-              email={session.user.email}
-            />
-            {featuredData && <FeaturedMovie item={featuredData} />}
-            {trendingList.map((item, key) => (
-              <MovieRow key={key} title={item.title} items={item.items} />
-            ))}
-            {trendingListDay.map((item, key) => (
-              <MovieRow key={key} title={item.title} items={item.items} />
-            ))}
-            {action.map((item, key) => (
-              <MovieRow key={key} title={item.title} items={item.items} />
-            ))}
-            {comedy.map((item, key) => (
-              <MovieRow key={key} title={item.title} items={item.items} />
-            ))}
-            {horror.map((item, key) => (
-              <MovieRow key={key} title={item.title} items={item.items} />
-            ))}
-            {romance.map((item, key) => (
-              <MovieRow key={key} title={item.title} items={item.items} />
-            ))}
+      <Meta />
+      <Header black={blackHeader} />
+      <Container>
+        {topBtn && (
+          <AnimatePresence>
+            <motion.div
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={{
+                initial: {
+                  opacity: 0,
+                },
+                animate: {
+                  opacity: 1,
+                },
+                exit: {
+                  opacity: 0,
+                },
+              }}
+            >
+              <button onClick={handleScrollTop} className="topBtn">
+                <BiChevronUp size={40} />
+              </button>
+            </motion.div>
+          </AnimatePresence>
+        )}
+        <section id="Hero" className="hero">
+          <img src="/Logo.svg" alt="Logo" />
+          <button>EU QUERO ASSINAR</button>
+        </section>
+        <section id="Plans" className="cards">
+          <div className="arrow">
+            <Link
+              activeClass="active"
+              to="Plans"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+            >
+              <BiChevronDown size={70} />
+            </Link>
           </div>
-        </>
-      )}
+          <div className="title-cards">
+            <h1>ESCOLHA SEU PLANO</h1>
+          </div>
+          <div className="cards-wrap">
+            <div className="card">
+              <div className="card-top">
+                <h1>Plano Mensal</h1>
+                <h2>R$ 15,90/mês</h2>
+                <p>
+                  Assine o plano mensal da TrashFlix e encontre séries, filmes
+                  que são perfeitos para você.
+                </p>
+              </div>
+              <div className="card-btn">
+                <button>ESCOLHER</button>
+              </div>
+            </div>
+            <div className="card-middle">
+              <div className="card-top">
+                <div className="most">Mais Popular</div>
+                <h1>Plano Trimestral</h1>
+                <h2>R$ 35,90/trimestral</h2>
+                <p>
+                  Assine o plano trimestral da TrashFlix e encontre séries,
+                  filmes perfeitos para você.
+                </p>
+              </div>
+              <div className="card-btn">
+                <button>ESCOLHER</button>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-top">
+                <h1>Plano Anual</h1>
+                <h2>R$ 350,00/ano</h2>
+                <p>
+                  Aproveite um ano inteiro por um preço promocional e encontre
+                  mais do que Você gosta.
+                </p>
+              </div>
+              <div className="card-btn">
+                <button>ESCOLHER</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="Footer" className="footer"></section>
+      </Container>
     </>
   );
 }
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-
-  return {
-    props: {
-      session,
-    },
-  };
-};
