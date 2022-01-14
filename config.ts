@@ -1,9 +1,8 @@
-export const API_URL = "https://trashflix-api.vercel.app";
+export const API_URL = "BACKEND";
 
 export const TMDB_URL = "https://api.themoviedb.org/3";
 
-export const API_KEY =
-  process.env.REACT_APP_API_KEY || "6348a726f8b6caab7659f60e2955d519";
+export const API_KEY = "TMDB_API_KEY";
 
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 
