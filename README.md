@@ -13,6 +13,10 @@ Created by Felipe Almeida (@fgalmeida)
 
 You can now access [`localhost:3000`](http://localhost:3000) of your browser.
 
+### Fake API:
+
+[`Repository`](https://github.com/fgalmeida/trashflix-api)
+
 ### Soon...
 - [ ] Movie Player
 ...
